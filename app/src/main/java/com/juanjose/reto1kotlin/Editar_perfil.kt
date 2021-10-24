@@ -1,23 +1,38 @@
 package com.juanjose.reto1kotlin
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import com.juanjose.reto1kotlin.databinding.FragmentEditarPerfilBinding
 
 class Editar_perfil : Fragment() {
 
+    private lateinit var binding: FragmentEditarPerfilBinding
+    public lateinit var listener: OnProfileEdit
 
-    override fun onCreateView(
+     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_editar_perfil, container, false)
+        binding = FragmentEditarPerfilBinding.inflate(inflater,container,false)
+        val view = binding.root
+
+        binding.acceptBtn.setOnClickListener{
+
+            listener?.let {
+                //it.onProfileEdit()
+            }
+
+        }
+
+        return view
+    }
+
+    interface OnProfileEdit{
+        fun onProfileEdit(name:String, photo: Bitmap, description:String)
     }
 
     companion object {

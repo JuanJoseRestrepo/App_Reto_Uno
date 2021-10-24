@@ -26,18 +26,19 @@ class DateDialogFragment : DialogFragment() {
     private var month: Int
     private var day: Int
     private var listener: OnDateSelectedListener? = null
-    
+    /*
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.fragment_date_dialog, container, false)
-        val datePicker: CalendarView = view.findViewById(R.id.datePicker)
-        val timePicker: TimePicker = view.findViewById(R.id.timePicker)
-        val nextBtn: Button = view.findViewById(R.id.nextBtn)
+        //val view: View = inflater.inflate(R.layout.fragment_date_dialog, container, false)
+
+        //val datePicker: CalendarView = view.findViewById(R.id.datePicker)
+        //val timePicker: TimePicker = view.findViewB yId(R.id.timePicker)
+        //val nextBtn: Button = view.findViewById(R.id.nextBtn)
 
         //Para obtener los datos del calendar se debe manejar el evento
-        datePicker.setOnDateChangeListener { root: CalendarView?, year: Int, month: Int, dayOfMonth: Int ->
+        //datePicker.setOnDateChangeListener { root: CalendarView?, year: Int, month: Int, dayOfMonth: Int ->
             this.year = year
             this.month = month
             day = dayOfMonth
@@ -57,7 +58,7 @@ class DateDialogFragment : DialogFragment() {
         }
         return view
     }
-
+    */
     fun setListener(listener: OnDateSelectedListener?) {
         this.listener = listener
     }

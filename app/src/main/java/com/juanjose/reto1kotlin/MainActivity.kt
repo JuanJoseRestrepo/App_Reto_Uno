@@ -1,5 +1,6 @@
 package com.juanjose.reto1kotlin
 
+import android.app.PendingIntent.getActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +9,13 @@ import com.juanjose.reto1kotlin.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var perfilFragment : Perfil_fragment
-    private lateinit var publicationFragment : Publicaciones_fragment
+    public lateinit var perfilFragment : Perfil_fragment
+    public lateinit var publicationFragment : Publicaciones_fragment
+    public lateinit var editProfileFragment : Editar_perfil
     private lateinit var mapaFragment: MapsFragmentGoogle
     private lateinit var binding : ActivityMainBinding
     private lateinit var supp : SupportMapFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         perfilFragment = Perfil_fragment.newInstance()
         publicationFragment = Publicaciones_fragment.newInstance()
+        editProfileFragment = Editar_perfil.newInstance()
+        editProfileFragment.listener = perfilFragment
+
         //supp
         //mapaFragment = MapsFragmentGoogle.
         //navegation_mapa
@@ -48,5 +54,7 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
+
+
 
 }
