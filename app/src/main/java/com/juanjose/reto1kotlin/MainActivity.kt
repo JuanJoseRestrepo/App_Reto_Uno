@@ -1,11 +1,13 @@
 package com.juanjose.reto1kotlin
 
+import android.Manifest
 import android.app.PendingIntent.getActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.SupportMapFragment
 import com.juanjose.reto1kotlin.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +21,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestPermissions(arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ),1)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
