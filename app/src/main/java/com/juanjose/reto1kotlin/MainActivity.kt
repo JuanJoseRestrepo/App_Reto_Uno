@@ -1,13 +1,15 @@
 package com.juanjose.reto1kotlin
 
 import android.Manifest
+import android.app.Instrumentation
 import android.app.PendingIntent.getActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.SupportMapFragment
 import com.juanjose.reto1kotlin.databinding.ActivityMainBinding
-
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import android.app.Instrumentation.ActivityResult
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,14 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var supp : SupportMapFragment
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        requestPermissions(arrayOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ),1)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -63,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
-
 
 
 }

@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="77dp"
@@ -29,6 +29,7 @@
             android:layout_marginBottom="35dp"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="description"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -73,22 +74,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="159dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="158dp"
-            android:layout_marginBottom="39dp"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/baseline_local_see_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/imageBtn"
+            android:layout_width="95dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="135dp"
+            android:saveEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
+            tools:srcCompat="@drawable/baseline_add_comment_black_24dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,6 +113,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:id="@+id/namePerson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="78dp"
@@ -122,13 +121,14 @@
             android:layout_marginEnd="78dp"
             android:layout_marginBottom="31dp"
             android:ems="10"
+            android:hint="Name"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="Name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

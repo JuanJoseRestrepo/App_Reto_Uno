@@ -2,6 +2,7 @@ package com.juanjose.reto1kotlin
 
 import android.app.Activity
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,9 +38,10 @@ class Perfil_fragment : Fragment(), Editar_perfil.OnProfileEdit {
         fun newInstance() = Perfil_fragment()
     }
 
-    override fun onProfileEdit(name: String, photo: Bitmap, description: String) {
+    override fun onProfileEdit(name: String, photo: Uri, description: String) {
 
     }
+
 
 
 }
