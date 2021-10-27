@@ -46,7 +46,7 @@ class Editar_perfil : Fragment() {
                     it.onProfileEdit(namePerson.text.toString(),imageUri,description.text.toString())
                 }
             }
-
+            this.dismiss()
         }
 
         return view

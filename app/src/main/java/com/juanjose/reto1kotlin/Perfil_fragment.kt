@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +40,9 @@ class Perfil_fragment : Fragment(), Editar_perfil.OnProfileEdit {
     }
 
     override fun onProfileEdit(name: String, photo: Uri, description: String) {
-
+        binding.namePersonTV.text = name
+        binding.descriptionPersonTV.text = description+
+        binding.profilePhotoIV.setImageURI(photo)
     }
 
 
