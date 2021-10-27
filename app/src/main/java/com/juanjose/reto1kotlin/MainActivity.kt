@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     public lateinit var publicationFragment : Publicaciones_fragment
     public lateinit var editProfileFragment : Editar_perfil
     public lateinit var publicationInformation : Publicaciones_informacion
-    public lateinit var dateDialogFragment: DateDialogFragment
     private lateinit var mapaFragment: MapsFragmentGoogle
     private lateinit var binding : ActivityMainBinding
     private lateinit var supp : SupportMapFragment
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         editProfileFragment = Editar_perfil.newInstance()
         editProfileFragment.listener = perfilFragment
         publicationInformation = Publicaciones_informacion.newInstance()
-        dateDialogFragment = DateDialogFragment.newInstance()
 
         //supp
         //mapaFragment = MapsFragmentGoogle.
