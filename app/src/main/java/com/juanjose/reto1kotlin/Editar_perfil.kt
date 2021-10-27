@@ -43,14 +43,20 @@ class Editar_perfil : Fragment() {
         binding.acceptBtn.setOnClickListener{
             if(!description.text.isEmpty() && !namePerson.text.isEmpty() && imageBtn.isEnabled){
                 listener?.let {
+
                     it.onProfileEdit(namePerson.text.toString(),imageUri,description.text.toString())
+
                 }
+
+                (activity as MainActivity).showFragment((activity as MainActivity).perfilFragment)
+
             }
-            this.dismiss()
+            //this.dismiss()
         }
 
         return view
     }
+
 
     interface OnProfileEdit{
         fun onProfileEdit(name:String, photo: Uri, description:String)

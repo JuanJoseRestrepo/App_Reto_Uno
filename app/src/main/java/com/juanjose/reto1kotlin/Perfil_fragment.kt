@@ -15,7 +15,9 @@ import com.juanjose.reto1kotlin.databinding.FragmentPerfilFragmentBinding
 class Perfil_fragment : Fragment(), Editar_perfil.OnProfileEdit {
 
     private lateinit var binding: FragmentPerfilFragmentBinding
-
+    private var name: String = "Nombre por defecto"
+    private var  photo: Uri? = null
+    private var description: String = "Descripcion "
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +30,17 @@ class Perfil_fragment : Fragment(), Editar_perfil.OnProfileEdit {
 
             (activity as MainActivity).showFragment((activity as MainActivity).editProfileFragment)
 
+
         }
+
+
+        binding.descriptionPersonTV.text = this.description
+        binding.namePersonTV.text = this.name
+        if(this.photo != null){
+            binding.profilePhotoIV.setImageURI(photo)
+        }
+
+
 
         return view
 
@@ -40,9 +52,10 @@ class Perfil_fragment : Fragment(), Editar_perfil.OnProfileEdit {
     }
 
     override fun onProfileEdit(name: String, photo: Uri, description: String) {
-        binding.namePersonTV.text = name
-        binding.descriptionPersonTV.text = description+
-        binding.profilePhotoIV.setImageURI(photo)
+        this.name = name
+        this.photo = photo
+        this.description = description
+
     }
 
 
