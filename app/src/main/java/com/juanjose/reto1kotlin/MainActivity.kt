@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         editProfileFragment.listener = perfilFragment
         publicationInformation = Publicaciones_informacion.newInstance()
 
+        //Suscripcion
+        publicationInformation.listener = publicationFragment
+
         //supp
         //mapaFragment = MapsFragmentGoogle.
         //navegation_mapa

@@ -9,27 +9,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.size
+import com.juanjose.reto1kotlin.databinding.FragmentMapFragmentBinding
 import kotlinx.android.synthetic.main.fragment_map_fragment.*
 
 class map_fragment : Fragment() {
 
+    private lateinit var binding : FragmentMapFragmentBinding
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        crearPublicacion_btn.setOnClickListener{
-
-        }
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentMapFragmentBinding.inflate(inflater,container,false)
+        var view = binding.root
+
+        binding.recyclerView.size
+        binding.crearPublicacionBtn.positi
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map_fragment, container, false)
+        return view
     }
 
     companion object {
