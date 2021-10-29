@@ -2,6 +2,7 @@ package com.juanjose.reto1kotlin
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -53,9 +54,14 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
 
         binding.crearBtn.setOnClickListener {
 
+            val sharedPreferences = requireActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+
+            val oldname = sharedPreferences.getString("NAME", "Inserte el nombre")
+            val oldimage = sharedPreferences.getString("IMAGE", null)
+
             //Publicacion
             listener?.let {
-                it.OnNewPost(eventAddressTV.text.toString(), startBtn.text.toString(), endBtn.text.toString(), imageUri, this.eventName, this.placeName)
+                it.OnNewPost(eventAddressTV.text.toString(), startBtn.text.toString(), endBtn.text.toString(), Uri.parse(oldimage), editTextTextPostName2.text.toString(), oldname!!)
             }
 
         }
