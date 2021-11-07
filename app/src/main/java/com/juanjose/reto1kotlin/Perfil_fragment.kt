@@ -17,7 +17,7 @@ class Perfil_fragment : Fragment(), Editar_perfil.OnProfileEdit {
     private lateinit var binding: FragmentPerfilFragmentBinding
     private var name: String = "Nombre por defecto"
     private var  photo: Uri? = null
-    private var description: String = "Descripcion "
+    private var description: String = "Descripcion"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,15 +1,10 @@
 package com.juanjose.reto1kotlin
 
-import android.Manifest
-import android.app.Instrumentation
-import android.app.PendingIntent.getActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.SupportMapFragment
 import com.juanjose.reto1kotlin.databinding.ActivityMainBinding
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import android.app.Instrumentation.ActivityResult
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     public lateinit var publicationFragment : Publicaciones_fragment
     public lateinit var editProfileFragment : Editar_perfil
     public lateinit var publicationInformation : Publicaciones_informacion
-    private lateinit var mapaFragment: MapsFragmentGoogle
+    public lateinit var mapsGoogleFrag: MapsFragmentGoogle
     private lateinit var binding : ActivityMainBinding
     private lateinit var supp : SupportMapFragment
 
@@ -33,10 +28,8 @@ class MainActivity : AppCompatActivity() {
         editProfileFragment = Editar_perfil.newInstance()
         editProfileFragment.listener = perfilFragment
         publicationInformation = Publicaciones_informacion.newInstance()
+        mapsGoogleFrag = MapsFragmentGoogle.newInstance()
 
-        //supp
-        //mapaFragment = MapsFragmentGoogle.
-        //navegation_mapa
 
         showFragment(perfilFragment)
 
@@ -46,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                 showFragment(perfilFragment)
             }else if(menuItem.itemId == R.id.navegation_publicaciones){
                 showFragment(publicationFragment)
+            }else if(menuItem.itemId == R.id.navegation_mapa){
+                showFragment(mapsGoogleFrag)
             }
 
             true
