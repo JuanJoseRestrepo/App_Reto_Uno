@@ -2,6 +2,8 @@ package com.juanjose.reto1kotlin
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import com.juanjose.reto1kotlin.databinding.FragmentPublicacionesFragmentBinding
 import com.juanjose.reto1kotlin.databinding.FragmentPublicacionesInformacionBinding
+import kotlinx.android.synthetic.main.fragment_publicaciones_informacion.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,17 +33,38 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
 
     var buttonPressed = false
 
-    private lateinit var binding : FragmentPublicacionesInformacionBinding
+    private var _binding : FragmentPublicacionesInformacionBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var imageUri: Uri
+    private lateinit var eventName: String
+    private lateinit var placeName: String
+
+    //Listener
+    var listener : OnNewPostListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentPublicacionesInformacionBinding.inflate(inflater,container,false)
+        _binding = FragmentPublicacionesInformacionBinding.inflate(inflater,container,false)
         var view = binding.root
 
         pickDate()
+
+        binding.crearBtn.setOnClickListener {
+
+            val sharedPreferences = requireActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+
+            val oldname = sharedPreferences.getString("NAME", "Inserte el nombre")
+            val oldimage = sharedPreferences.getString("IMAGE", null)
+
+            //Publicacion
+            listener?.let {
+                it.OnNewPost(eventAddressTV.text.toString(), startBtn.text.toString(), endBtn.text.toString(), Uri.parse(oldimage), editTextTextPostName2.text.toString(), oldname!!)
+            }
+
+        }
 
         // Inflate the layout for this fragment
         return view
@@ -101,4 +125,12 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
         activity?.let { DatePickerDialog(it, this, year, month, day).show() }
     }
 
+    interface OnNewPostListener{
+        fun OnNewPost(address : String, startDate : String, endDate : String, photo : Uri, eventName : String, placeName : String)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

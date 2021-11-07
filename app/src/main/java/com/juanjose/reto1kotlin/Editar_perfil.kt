@@ -2,6 +2,7 @@ package com.juanjose.reto1kotlin
 
 import android.app.Activity.RESULT_OK
 import android.app.Instrumentation
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.*
 import android.content.Intent.ACTION_GET_CONTENT
@@ -56,6 +57,31 @@ class Editar_perfil : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.acceptBtn.setOnClickListener {
+
+            val sharedPreferences = requireActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
+            val spEditor = sharedPreferences.edit()
+
+            val newname = binding.namePerson.text.toString()
+            val newdescription = binding.description.text.toString()
+
+            spEditor.apply{
+                putString("NAME", newname)
+                putString("DESCRIPTION", newdescription)
+                putString("IMAGE", imageUri.toString())
+            }.apply()
+
+            requireActivity().supportFragmentManager.popBackStackImmediate()
+
+        }
+
+
+
+
+    }
 
     interface OnProfileEdit{
         fun onProfileEdit(name:String, photo: Uri, description:String)
