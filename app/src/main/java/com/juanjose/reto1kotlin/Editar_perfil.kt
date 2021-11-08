@@ -1,23 +1,28 @@
 package com.juanjose.reto1kotlin
 
+import android.Manifest
+import android.Manifest.permission.*
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.*
 import android.content.Intent.ACTION_GET_CONTENT
-import android.graphics.Bitmap
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
+import android.os.Build
+import android.os.Build.VERSION
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import com.juanjose.reto1kotlin.databinding.FragmentEditarPerfilBinding
 import kotlinx.android.synthetic.main.fragment_editar_perfil.*
-import java.io.File
 
 
 class Editar_perfil : Fragment() {
@@ -28,6 +33,7 @@ class Editar_perfil : Fragment() {
     private lateinit var imageUri: Uri
 
 
+     @SuppressLint("WrongConstant")
      override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +43,7 @@ class Editar_perfil : Fragment() {
         val view = binding.root
 
          binding.imageBtn.setOnClickListener{
+
                 openGallery()
                 imageBtn.isEnabled = true
          }
@@ -46,7 +53,7 @@ class Editar_perfil : Fragment() {
                 listener?.let {
 
                     it.onProfileEdit(namePerson.text.toString(),imageUri,description.text.toString())
-
+                    binding.imageBtn.isEnabled = false
                 }
 
                 (activity as MainActivity).showFragment((activity as MainActivity).perfilFragment)
@@ -72,6 +79,7 @@ class Editar_perfil : Fragment() {
                 putString("NAME", newname)
                 putString("DESCRIPTION", newdescription)
                 putString("IMAGE", imageUri.toString())
+
             }.apply()
 
             requireActivity().supportFragmentManager.popBackStackImmediate()
@@ -88,9 +96,15 @@ class Editar_perfil : Fragment() {
     }
 
     companion object {
+
+        private val IMAGE_PICK_CODE = 1000
+
+        private val PERMISSION_CODE = 1001
+
         @JvmStatic
         fun newInstance() = Editar_perfil()
     }
+
 
     fun openGallery(){
         val value = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI)

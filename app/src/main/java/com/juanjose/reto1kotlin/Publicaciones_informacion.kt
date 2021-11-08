@@ -3,6 +3,7 @@ package com.juanjose.reto1kotlin
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
     //Listener
     var listener : OnNewPostListener? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,6 +64,15 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
             //Publicacion
             listener?.let {
                 it.OnNewPost(eventAddressTV.text.toString(), startBtn.text.toString(), endBtn.text.toString(), Uri.parse(oldimage), editTextTextPostName2.text.toString(), oldname!!)
+            }
+
+        }
+
+        binding.googleBtn.setOnClickListener{
+
+            activity?.let{
+                val intent = Intent (it, MapsActivity::class.java)
+                it.startActivity(intent)
             }
 
         }
@@ -125,12 +136,19 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
         activity?.let { DatePickerDialog(it, this, year, month, day).show() }
     }
 
-    interface OnNewPostListener{
-        fun OnNewPost(address : String, startDate : String, endDate : String, photo : Uri, eventName : String, placeName : String)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    //Interfaces
+    interface OnNewPostListener{
+        fun OnNewPost(address : String, startDate : String, endDate : String, photo : Uri, eventName : String, placeName : String)
+    }
+
+    interface onMapListener{
+        fun onNewMap()
+    }
+
 }

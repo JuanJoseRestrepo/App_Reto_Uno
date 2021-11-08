@@ -2,6 +2,7 @@ package com.juanjose.reto1kotlin
 
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
+import android.location.Location
 import android.location.LocationManager
 import androidx.fragment.app.Fragment
 
@@ -25,6 +26,8 @@ class MapsFragmentGoogle : Fragment(){
     private lateinit var manager: LocationManager
     private lateinit var markers :ArrayList<Marker>
 
+    var currentLocation: Location? = null
+
     private val callback = OnMapReadyCallback { googleMap ->
         val arraylists = ArrayList<Marker>()
         markers = arraylists
@@ -35,12 +38,12 @@ class MapsFragmentGoogle : Fragment(){
 
         googleMap.setOnMapLongClickListener {
             pos->
-            val marker = putNeMarket(pos.latitude,pos.longitude,googleMap)
+            val marker = putNewMarket(pos.latitude,pos.longitude,googleMap)
             markers.add(marker)
         }
 
 
-        putNeMarket(3.4,-72.0,googleMap)
+        //putNewMarket(3.4,-72.0,googleMap)
     }
 
     override fun onCreateView(
@@ -59,16 +62,13 @@ class MapsFragmentGoogle : Fragment(){
 
     }
 
+
     companion object {
-        fun newInstance(): MapsFragmentGoogle {
-            val args = Bundle()
-            val fragment = MapsFragmentGoogle()
-            fragment.arguments = args
-            return fragment
-        }
+        @JvmStatic
+        fun newInstance() = MapsFragmentGoogle()
     }
 
-    fun putNeMarket(lat:Double,lng:Double,googlemap: GoogleMap): Marker {
+    fun putNewMarket(lat:Double,lng:Double,googlemap: GoogleMap): Marker {
         val sydney = LatLng(lat, lng)
         val marker = googlemap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googlemap.moveCamera(CameraUpdateFactory.newLatLng(sydney))

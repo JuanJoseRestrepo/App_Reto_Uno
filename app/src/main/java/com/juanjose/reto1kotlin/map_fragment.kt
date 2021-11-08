@@ -27,7 +27,7 @@ class map_fragment : Fragment() {
         var view = binding.root
 
         binding.recyclerView.size
-        // binding.crearPublicacionBtn.position
+        //binding.crearPublicacionBtn.positi
         // Inflate the layout for this fragment
         return view
     }
