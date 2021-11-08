@@ -2,6 +2,7 @@ package com.juanjose.reto1kotlin
 
 import android.annotation.SuppressLint
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.juanjose.reto1kotlin.databinding.ActivityMapsBinding
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
 
@@ -48,6 +50,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         mMap.setOnMapLongClickListener {
             pos->
             myMarker.position = pos
+
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,17f))
         }
 
@@ -70,7 +73,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
     fun putNewMarker(latitude: Double, longitude: Double): Marker{
         // Add a marker in Sydney and move the camera
         val pos = LatLng(latitude, longitude)
-        val marker = mMap.addMarker(MarkerOptions().position(pos).title("Marker in Sydney"))
+        val marker = mMap.addMarker(MarkerOptions().position(pos).title("Marker in Sydney").snippet(getAddress(pos.latitude,pos.longitude)))
         mMap.animateCamera(CameraUpdateFactory.newLatLng(pos))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,17f))
         return marker
@@ -84,6 +87,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
 
 
 
+    fun getAddress(lat: Double, lng: Double): String{
+        val geoCoder = Geocoder(this, Locale.getDefault())
+        val adress = geoCoder.getFromLocation(lat,lng,1)
+        return adress[0].getAddressLine(0).toString()
+    }
     override fun onLocationChanged(p0: Location) {
         editMarkerPosition(myMarker,p0.latitude,p0.longitude)
     }
