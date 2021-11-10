@@ -1,6 +1,7 @@
 package com.juanjose.reto1kotlin
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -40,11 +41,14 @@ class MainActivity : AppCompatActivity() {
         editProfileFragment = Editar_perfil.newInstance()
         publicationInformation = Publicaciones_informacion.newInstance()
         mapsGoogleFrag = MapsFragmentGoogle.newInstance()
-        //mapsGoogleActi = mapsGoogleActi.newInstance()
+        mapsGoogleActi = MapsActivity.newInstance()
+
+
+
         //Suscripcion (Listeners)
         publicationInformation.listener = publicationFragment
         editProfileFragment.listener = perfilFragment
-
+        publicationInformation.listener1 = mapsGoogleActi
 
         showFragment(perfilFragment)
 

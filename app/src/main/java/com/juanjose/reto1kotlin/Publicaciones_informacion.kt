@@ -6,16 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
-import com.juanjose.reto1kotlin.databinding.FragmentPublicacionesFragmentBinding
+import android.widget.Toast
 import com.juanjose.reto1kotlin.databinding.FragmentPublicacionesInformacionBinding
 import kotlinx.android.synthetic.main.fragment_publicaciones_informacion.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener{
@@ -41,12 +41,14 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
     private lateinit var placeName: String
 
     //Listener
-    var listener : OnNewPostListener? = null
+    public var listener : OnNewPostListener? = null
+    public var listener1 : OnNewMapActivityListener? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
 
         _binding = FragmentPublicacionesInformacionBinding.inflate(inflater,container,false)
@@ -63,17 +65,28 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
 
             //Publicacion
             listener?.let {
-                it.OnNewPost(eventAddressTV.text.toString(), startBtn.text.toString(), endBtn.text.toString(), Uri.parse(oldimage), editTextTextPostName2.text.toString(), oldname!!)
+                if(!editName.text.isEmpty() && oldname != null && oldimage != null){
+                    it.OnNewPost(eventAddressTV.text.toString(), startBtn.text.toString(), endBtn.text.toString(), Uri.parse(oldimage), editName.text.toString(), oldname!!)
+                }
             }
 
         }
 
+
         binding.googleBtn.setOnClickListener{
 
-            activity?.let{
-                val intent = Intent (it, MapsActivity::class.java)
-                it.startActivity(intent)
+            val oldname = ""
+            val oldimage = ""
+
+
+            if(!editName.text.isEmpty() ){
+
+                activity?.let{
+                    sendData()
+
+                }
             }
+
 
         }
 
@@ -147,8 +160,26 @@ class Publicaciones_informacion : Fragment() , DatePickerDialog.OnDateSetListene
         fun OnNewPost(address : String, startDate : String, endDate : String, photo : Uri, eventName : String, placeName : String)
     }
 
-    interface onMapListener{
-        fun onNewMap()
+
+    interface OnNewMapActivityListener {
+        fun OnNewPostMap(address: String)
+    }
+
+    private fun sendData() {
+        //INTENT OBJ
+        val i = Intent(
+            requireActivity().baseContext,
+            MapsActivity::class.java
+        )
+
+        //PACK DATA
+        i.putExtra("SENDER_KEY", "Publicaciones_informacion")
+        i.putExtra("NAME_KEY", editName.getText().toString())
+        //i.putExtra("YEAR_KEY", Integer.valueOf(launchYearSpinner.getSelectedItem().toString()))
+
+
+        //START ACTIVITY
+        requireActivity().startActivity(i)
     }
 
 }

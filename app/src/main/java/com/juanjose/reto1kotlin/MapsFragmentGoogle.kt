@@ -23,10 +23,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragmentGoogle : Fragment(){
 
-    private lateinit var manager: LocationManager
     private lateinit var markers :ArrayList<Marker>
 
-    var currentLocation: Location? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
         val arraylists = ArrayList<Marker>()
@@ -36,14 +34,6 @@ class MapsFragmentGoogle : Fragment(){
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,14f))
         }
 
-        googleMap.setOnMapLongClickListener {
-            pos->
-            val marker = putNewMarket(pos.latitude,pos.longitude,googleMap)
-            markers.add(marker)
-        }
-
-
-        //putNewMarket(3.4,-72.0,googleMap)
     }
 
     override fun onCreateView(
@@ -58,8 +48,6 @@ class MapsFragmentGoogle : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-
-
     }
 
 
@@ -68,11 +56,5 @@ class MapsFragmentGoogle : Fragment(){
         fun newInstance() = MapsFragmentGoogle()
     }
 
-    fun putNewMarket(lat:Double,lng:Double,googlemap: GoogleMap): Marker {
-        val sydney = LatLng(lat, lng)
-        val marker = googlemap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googlemap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-        return marker
-    }
 
 }
